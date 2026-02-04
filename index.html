@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Whack-A-Mole</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+   <div class="brand-title">
+  AI Whack-A-Mole
+  <span>Outthink the Night</span>
+</div>
+
+    <!-- GAME HUD -->
+<div class="hud">
+  <div class="hud-item">Score <span id="score">0</span></div>
+  <div class="hud-item">Time <span id="time">30</span>s</div>
+  <div class="hud-item">Accuracy <span id="accuracy">0%</span></div>
+</div>
+ 
+
+<!-- FOREST BACKGROUND -->
+<div class="forest">
+  <div class="fog"></div>
+  <div class="stars"></div>
+
+  <div class="fireflies"></div>
+</div>
+
+<div class="game-container">
+
+  <section class="grid">
+    <div class="hole"></div>
+    <div class="hole"></div>
+    <div class="hole"></div>
+    <div class="hole"></div>
+    <div class="hole"></div>
+    <div class="hole"></div>
+    <div class="hole"></div>
+    <div class="hole"></div>
+    <div class="hole"></div>
+  </section>
+
+  <section class="ai-box">
+    <h3>🧠 AI Feedback</h3>
+    <p id="ai-message">Waiting for your moves…</p>
+  </section>
+
+  <section class="controls">
+    <button class="btn start">Start</button>
+    <button class="btn reset">Reset</button>
+    <button class="btn mute" id="muteBtn">🔊 Sound On</button>
+    <button class="btn theme" id="themeToggle">🌙 Night</button>
+
+
+  </section>
+
+</div>
+<!-- END SCREEN -->
+<div class="end-screen" id="endScreen">
+  <div class="end-card">
+    <h2>🌙 Session Summary</h2>
+    <p>Score: <span id="finalScore">0</span></p>
+    <p>Accuracy: <span id="finalAccuracy">0%</span></p>
+    <p>Best Score: <span id="bestScore">0</span></p>
+
+    <p class="end-ai" id="endAI"></p>
+    <button class="btn start" id="playAgain">Play Again</button>
+  </div>
+</div>
+
+<!-- SOUND EFFECTS -->
+<audio id="bgSound" src="sounds/background.wav" loop></audio>
+<audio id="buttonSound" src="sounds/button.wav"></audio>
+<audio id="continueSound" src="sounds/continue.wav"></audio>
+<audio id="hitSound" src="sounds/hit.wav"></audio>
+<audio id="missSound" src="sounds/miss.wav"></audio>
+<audio id="winSound" src="sounds/win.wav"></audio>
+
+<script src="ai.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

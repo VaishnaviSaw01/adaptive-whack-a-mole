@@ -1,0 +1,373 @@
+/* =======================
+   GLOBAL RESET
+======================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* =======================
+   BODY (MYSTIC NIGHT)
+======================= */
+body {
+  background: radial-gradient(circle at top, #1e1b4b 0%, #020617 60%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #e5e7eb;
+  overflow: hidden;
+}
+
+/* =======================
+   GAME HUD (TOP STATS)
+======================= */
+.hud {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 36px;
+  z-index: 20;
+}
+
+.hud-item {
+  background: rgba(15, 23, 42, 0.55);
+  padding: 12px 20px;
+  border-radius: 14px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.9rem;
+}
+
+.hud-item span {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #67e8f9;
+  margin-top: 4px;
+}
+
+/* =======================
+   FOREST BACKGROUND
+======================= */
+.forest {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+/* STAR NOISE */
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.25), transparent),
+    radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.2), transparent),
+    radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.15), transparent),
+    radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,0.18), transparent),
+    radial-gradient(1px 1px at 10% 70%, rgba(255,255,255,0.12), transparent);
+  opacity: 0.35;
+}
+
+/* FOG */
+.fog {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.04), transparent 60%);
+  animation: fogMove 40s linear infinite;
+}
+
+@keyframes fogMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* FIREFLIES */
+.fireflies {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.fireflies span {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 180, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255,255,180,0.9);
+  animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+
+/* =======================
+   GAME CONTAINER
+======================= */
+.game-container {
+  width: 420px;
+  background: rgba(15, 23, 42, 0.75);
+  border-radius: 20px;
+  padding: 22px;
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* =======================
+   HEADER
+======================= */
+.game-header {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.game-header h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #e0f2fe;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* =======================
+   GAME GRID
+======================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.hole {
+  aspect-ratio: 1;
+  background: radial-gradient(circle at bottom, #334155, #020617);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.hole.active {
+  box-shadow: 0 0 18px rgba(103, 232, 249, 0.35);
+}
+
+.hole.hit {
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.9);
+}
+
+/* =======================
+   MOLE
+======================= */
+.mole {
+  position: absolute;
+  bottom: -60%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  font-size: 2.2rem;
+  transition: bottom 0.25s ease, transform 0.25s ease;
+  pointer-events: auto;
+}
+
+
+
+.hole.active .mole {
+  bottom: 14%;
+  transform: translateX(-50%) scale(1);
+}
+
+/* =======================
+   AI MESSAGE BOX
+======================= */
+.ai-box {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.6);
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+#ai-message {
+  font-size: 0.85rem;
+  color: #c7d2fe;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+/* =======================
+   CONTROLS
+======================= */
+.controls {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+
+
+.btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* BUTTON TYPES */
+.start {
+  background: linear-gradient(135deg, #67e8f9, #38bdf8);
+  color: #020617;
+}
+
+.reset {
+  background: #334155;
+  color: #e5e7eb;
+}
+
+.mute {
+  background: #1e293b;
+  color: #e5e7eb;
+}
+
+/* =======================
+   FEEDBACK ANIMATIONS
+======================= */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+.game-container.shake {
+  animation: shake 0.15s;
+}
+/* LIGHT NIGHT MODE */
+
+body.light {
+  background: radial-gradient(circle at top, #64748b 0%, #0f172a 65%);
+}
+
+body.light .game-container {
+  background: rgba(248, 250, 252, 0.9);
+  color: #020617;
+}
+
+body.light .hud-item {
+  background: rgba(226, 232, 240, 0.85);
+}
+
+body.light .hud-item span {
+  color: #0ea5e9;
+}
+
+body.light .hole {
+  background: radial-gradient(circle at bottom, #cbd5e1, #94a3b8);
+}
+
+body.light .ai-box {
+  background: rgba(226, 232, 240, 0.85);
+}
+
+/* END SCREEN */
+.end-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+
+  opacity: 0;
+  pointer-events: none;   /* 🔑 THIS */
+  transition: opacity 0.3s ease;
+}
+
+.end-screen.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.end-card {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 26px;
+  border-radius: 20px;
+  text-align: center;
+  width: 320px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.end-card h2 {
+  margin-bottom: 12px;
+  color: #e0f2fe;
+}
+
+.end-card p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+.end-ai {
+  font-size: 0.85rem;
+  color: #c7d2fe;
+  margin: 12px 0;
+}
+/* =======================
+   BRAND TITLE (TOP LEFT)
+======================= */
+.brand-title {
+  position: fixed;
+  top: 18px;
+  left: 24px;
+  z-index: 30; /* above everything */
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #e0f2fe;
+  text-transform: uppercase;
+}
+
+.brand-title span {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #94a3b8;
+  letter-spacing: 1.5px;
+  margin-top: 2px;
+}
+.hud {
+  top: 20px;
+}
